@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://kwv48wlovh6r"]
+
+[ext_resource type="PackedScene" uid="uid://d0610ku7o6xuo" path="res://scenes/player/player.tscn" id="1_jbqir"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbqir"]
+size = Vector2(400, 20)
+
+[node name="TestLevel" type="Node2D" unique_id=1675952429]
+
+[node name="Suelo temporal" type="StaticBody2D" parent="." unique_id=321568861]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Suelo temporal" unique_id=1259717281]
+position = Vector2(0, 40)
+shape = SubResource("RectangleShape2D_jbqir")
+
+[node name="Player" parent="." unique_id=1601804339 instance=ExtResource("1_jbqir")]
