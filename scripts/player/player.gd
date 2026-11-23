@@ -29,7 +29,9 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_velocity
 
 	update_animation(direction)
-
+	
+	if Input.is_action_just_pressed("menu_pausa"):
+		_abrir_menu_pausa()
 	move_and_slide()
 
 
@@ -65,3 +67,15 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_area_exited(area: Area2D) -> void:
 	if area == nearby_interactable:
 		nearby_interactable = null
+
+
+func _abrir_menu_pausa() -> void:
+	var menu = load("res://scenes/ui/pause_menu.tscn")
+	var instantiate_menu = menu.instantiate()
+	
+	# creo la capa interfaz porque sino la posicion dependeria de la camara del jugador y no saldira centrado el menu
+	var interface_layer := CanvasLayer.new()
+	add_child(interface_layer)
+	interface_layer.add_child(instantiate_menu)
+	
+	get_tree().paused = true
