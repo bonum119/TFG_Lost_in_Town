@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://kwv48wlovh6r"]
 
 [ext_resource type="PackedScene" uid="uid://d0610ku7o6xuo" path="res://scenes/player/player.tscn" id="1_jbqir"]
+[ext_resource type="Texture2D" uid="uid://cm6338am1ysrn" path="res://icon.svg" id="1_yautc"]
+[ext_resource type="PackedScene" uid="uid://dyq1lrbl0gn54" path="res://scenes/objects/test_de_interaccion.tscn" id="3_fr1um"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jbqir"]
 size = Vector2(400, 20)
@@ -13,4 +15,12 @@ size = Vector2(400, 20)
 position = Vector2(0, 40)
 shape = SubResource("RectangleShape2D_jbqir")
 
+[node name="Sprite2D" type="Sprite2D" parent="Suelo temporal" unique_id=2011347435]
+position = Vector2(0.5, 39)
+scale = Vector2(3.1640625, 0.1875)
+texture = ExtResource("1_yautc")
+
 [node name="Player" parent="." unique_id=1601804339 instance=ExtResource("1_jbqir")]
+
+[node name="TestDeInteraccion" parent="." unique_id=287485758 instance=ExtResource("3_fr1um")]
+position = Vector2(-125, 16)

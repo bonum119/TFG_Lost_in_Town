@@ -149,6 +149,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3sy6q"]
 size = Vector2(14, 28)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bp5kt"]
+size = Vector2(36, 46)
+
 [node name="Player" type="CharacterBody2D" unique_id=1601804339]
 script = ExtResource("1_8afob")
 
@@ -160,3 +163,10 @@ animation = &"west_walk"
 shape = SubResource("RectangleShape2D_3sy6q")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1327131143]
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1911590982]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=874638181]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_bp5kt")
+debug_color = Color(3.0322374e-06, 0.6291626, 0.48844403, 0.41960785)
