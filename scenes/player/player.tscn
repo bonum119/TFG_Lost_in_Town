@@ -244,6 +244,7 @@ jump_velocity = -350.0
 jump_cut_multiplier = 0.3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=155723544]
+z_index = 5
 sprite_frames = SubResource("SpriteFrames_dovo2")
 animation = &"east_breathing"
 frame_progress = 0.5698244
