@@ -1,15 +1,25 @@
-
 extends CharacterBody2D
 
 @export var speed: float = 180.0
 @export var gravity: float = 980.0
 @export var jump_velocity: float = -400.0
+@export var acceleration: float = 900.0
+@export var friction: float = 1200.0
+@export var air_acceleration: float = 600.0
+@export var jump_cut_multiplier: float = 0.5
+@export var coyote_time: float = 0.12
+@export var jump_buffer_time: float = 0.12
+
+var jump_buffer_timer: float = 0.0
+var coyote_timer: float = 0.0
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var interaction_area: Area2D = $InteractionArea
+@onready var camera: Camera2D = $Camera2D
 
 var facing_direction: String = "east"
 var nearby_interactable: Area2D = null
+var _pause_layer: CanvasLayer = null
 
 
 func _ready() -> void:
@@ -19,41 +29,58 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
+	var target_speed := direction * speed
 
-	velocity.x = direction * speed
+	if is_on_floor():
+		if direction != 0:
+			velocity.x = move_toward(velocity.x, target_speed, acceleration * delta)
+		else:
+			velocity.x = move_toward(velocity.x, 0.0, friction * delta)
+	else:
+		velocity.x = move_toward(velocity.x, target_speed, air_acceleration * delta)
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if jump_buffer_timer > 0 and coyote_timer > 0:
 		velocity.y = jump_velocity
+		coyote_timer = 0.0
+		jump_buffer_timer = 0.0
+
+	if Input.is_action_just_released("jump") and velocity.y < 0.0:
+		velocity.y *= jump_cut_multiplier
+
+	if is_on_floor():
+		coyote_timer = coyote_time
+	else:
+		coyote_timer -= delta
 
 	update_animation(direction)
-	
-	if Input.is_action_just_pressed("menu_pausa"):
+
+	if Input.is_action_just_pressed("menu_pausa") and _pause_layer == null:
 		_abrir_menu_pausa()
+
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer_timer = jump_buffer_time
+	else:
+		jump_buffer_timer -= delta
+	
 	move_and_slide()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		if nearby_interactable != null:
-			if nearby_interactable.has_method("interact"):
-				nearby_interactable.interact()
+		if nearby_interactable != null and nearby_interactable.has_method("interact"):
+			nearby_interactable.interact()
 
 
 func update_animation(direction: float) -> void:
-	if direction > 0:
+	if direction > 0.0:
 		facing_direction = "east"
-	elif direction < 0:
+	elif direction < 0.0:
 		facing_direction = "west"
 
-	var animation_name: String
-
-	if direction != 0:
-		animation_name = facing_direction + "_walk"
-	else:
-		animation_name = facing_direction + "_breathing"
+	var animation_name := facing_direction + ("_walk" if direction != 0.0 else "_breathing")
 
 	if sprite.animation != animation_name:
 		sprite.play(animation_name)
@@ -70,12 +97,22 @@ func _on_area_exited(area: Area2D) -> void:
 
 
 func _abrir_menu_pausa() -> void:
-	var menu = load("res://scenes/ui/pause_menu.tscn")
-	var instantiate_menu = menu.instantiate()
-	
-	# creo la capa interfaz porque sino la posicion dependeria de la camara del jugador y no saldira centrado el menu
+	var menu_scene: PackedScene = load("res://scenes/ui/pause_menu.tscn")
+	if menu_scene == null:
+		return
+
 	var interface_layer := CanvasLayer.new()
-	add_child(interface_layer)
+	interface_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	var instantiate_menu := menu_scene.instantiate()
+	instantiate_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+
 	interface_layer.add_child(instantiate_menu)
-	
+	get_tree().current_scene.add_child(interface_layer)
+	_pause_layer = interface_layer
+
 	get_tree().paused = true
+
+
+func _process(_delta: float) -> void:
+	camera.global_position.y = 0.0

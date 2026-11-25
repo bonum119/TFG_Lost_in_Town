@@ -165,6 +165,7 @@ animation = &"west_walk"
 shape = SubResource("RectangleShape2D_3sy6q")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1327131143]
+position_smoothing_enabled = true
 
 [node name="InteractionArea" type="Area2D" parent="." unique_id=1911590982]
 
