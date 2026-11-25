@@ -8,13 +8,14 @@
 
 [node name="Antorcha" parent="." unique_id=874282713 instance=ExtResource("1_q48he")]
 z_index = 4
-position = Vector2(113, 35)
+position = Vector2(-48, 55)
 
 [node name="TestLevel" parent="." unique_id=1675952429 instance=ExtResource("1_7xjnx")]
 z_index = 0
 position = Vector2(1, 62)
 
 [node name="Player" parent="." unique_id=1601804339 instance=ExtResource("2_q48he")]
+position = Vector2(0, 31)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=462827279]
 color = Color(0.32156864, 0.41960785, 0.60784316, 1)

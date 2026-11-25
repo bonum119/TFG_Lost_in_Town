@@ -77,10 +77,21 @@ func _input(event: InputEvent) -> void:
 func update_animation(direction: float) -> void:
 	if direction > 0.0:
 		facing_direction = "east"
+		sprite.flip_h = false
 	elif direction < 0.0:
 		facing_direction = "west"
+		sprite.flip_h = true
 
-	var animation_name := facing_direction + ("_walk" if direction != 0.0 else "_breathing")
+	var animation_name: String
+	if not is_on_floor() and sprite.sprite_frames.has_animation("jump"):
+		animation_name = "jump"
+	else:
+		var base_anim := "east_walk" if direction != 0.0 else "east_breathing"
+		animation_name = base_anim
+
+	if sprite.animation != animation_name:
+		sprite.play(animation_name)
+
 
 	if sprite.animation != animation_name:
 		sprite.play(animation_name)
