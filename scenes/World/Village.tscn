@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://cvl652guykl5e"]
 
 [ext_resource type="Texture2D" uid="uid://cxciyu2an4poj" path="res://assets/tilesets/ground.png" id="1_0fws1"]
-[ext_resource type="PackedScene" uid="uid://d0610ku7o6xuo" path="res://scenes/player/player.tscn" id="1_q2lqi"]
 [ext_resource type="Texture2D" uid="uid://bhek6f48ni80m" path="res://assets/tilesets/platforms.png" id="2_uytes"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uytes"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0fws1"]
 texture = ExtResource("1_0fws1")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -3.963828, -8, 8, 8, 8, 8, -3.8647318)
@@ -330,9 +329,9 @@ texture = ExtResource("1_0fws1")
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 physics_layer_1/collision_layer = 1
-sources/4 = SubResource("TileSetAtlasSource_uytes")
+sources/4 = SubResource("TileSetAtlasSource_0fws1")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_47uq7"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uytes"]
 texture = ExtResource("2_uytes")
 0:0/0 = 0
 1:0/0 = 0
@@ -407,7 +406,7 @@ texture = ExtResource("2_uytes")
 4:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_0fws1"]
-sources/0 = SubResource("TileSetAtlasSource_47uq7")
+sources/0 = SubResource("TileSetAtlasSource_uytes")
 
 [node name="Village" type="Node2D" unique_id=2138472432]
 
@@ -422,7 +421,3 @@ z_index = 1
 tile_set = SubResource("TileSet_0fws1")
 
 [node name="Decorations" type="Node2D" parent="." unique_id=355710323]
-
-[node name="Player" parent="." unique_id=1601804339 instance=ExtResource("1_q2lqi")]
-collision_layer = 5
-platform_wall_layers = 4

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://d2ugph82vei67"]
+
+[ext_resource type="PackedScene" uid="uid://kwv48wlovh6r" path="res://scenes/World/test_level.tscn" id="1_7xjnx"]
+[ext_resource type="PackedScene" uid="uid://bxapv4pi75d0r" path="res://scenes/objects/antorcha.tscn" id="1_q48he"]
+[ext_resource type="PackedScene" uid="uid://d0610ku7o6xuo" path="res://scenes/player/player.tscn" id="2_q48he"]
+
+[node name="Main" type="Node2D" unique_id=1655324903]
+
+[node name="Antorcha" parent="." unique_id=874282713 instance=ExtResource("1_q48he")]
+z_index = 4
+position = Vector2(-97, -10)
+
+[node name="TestLevel" parent="." unique_id=1675952429 instance=ExtResource("1_7xjnx")]
+z_index = 0
+
+[node name="Player" parent="." unique_id=1601804339 instance=ExtResource("2_q48he")]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=462827279]
+color = Color(0.32156864, 0.41960785, 0.60784316, 1)

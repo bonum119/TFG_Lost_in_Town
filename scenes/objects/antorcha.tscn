@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://bxapv4pi75d0r"]
+
+[ext_resource type="Texture2D" uid="uid://duax078jxeitp" path="res://assets/objects/Torch Animated.png" id="1_rjxhy"]
+[ext_resource type="Texture2D" uid="uid://cm01jqfc43fdx" path="res://assets/Light/32x32/32x32 textures (1).png" id="2_y40ft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx07p"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hofiy"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgvfg"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7ogp"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqtqh"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63sx3"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcjbs"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uon5u"]
+atlas = ExtResource("1_rjxhy")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqu8y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lx07p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hofiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgvfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7ogp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqtqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63sx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcjbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uon5u")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="Antorcha" type="Node2D" unique_id=874282713]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=195113202]
+z_index = 2
+position = Vector2(1, 0)
+scale = Vector2(0.5, 0.4375)
+sprite_frames = SubResource("SpriteFrames_oqu8y")
+frame_progress = 0.11972688
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=386438200]
+texture_filter = 1
+scale = Vector2(5, 5)
+color = Color(0.7316928, 0.6333914, 0.25715196, 1)
+texture = ExtResource("2_y40ft")
