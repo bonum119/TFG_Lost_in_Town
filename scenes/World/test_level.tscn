@@ -152,7 +152,7 @@ texture = ExtResource("2_ofxdy")
 8:8/0 = 0
 9:8/0 = 0
 12:8/0 = 0
-12:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -4.1620197, -6, -4, -6, 8, -7, 8, 8, 8)
+12:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -4, -6, -4, -6, 8, -7, 8, 8, 8)
 13:8/0 = 0
 13:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 8, -8, 8)
 14:8/0 = 0
@@ -335,11 +335,23 @@ sources/4 = SubResource("TileSetAtlasSource_o4xny")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3h5vp"]
 texture = ExtResource("3_3cpid")
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -2, 8, -8, -8, -8, -8, -2)
+0:0/0/physics_layer_0/polygon_0/one_way = true
 1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -2, 8, -8, -8, -8, -8, -2)
+1:0/0/physics_layer_0/polygon_0/one_way = true
 2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -2, 8, -8, -8, -8, -8, -2)
+2:0/0/physics_layer_0/polygon_0/one_way = true
 3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -2, 8, -8, -8, -8, -8, -2)
+3:0/0/physics_layer_0/polygon_0/one_way = true
 4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -2, 8, -8, -8, -8, -8, -2)
+4:0/0/physics_layer_0/polygon_0/one_way = true
 5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -2, 8, -8, -8, -8, -8, -2)
+5:0/0/physics_layer_0/polygon_0/one_way = true
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -407,6 +419,7 @@ texture = ExtResource("3_3cpid")
 4:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_viwgx"]
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_3h5vp")
 
 [node name="TestLevel" type="Node2D" unique_id=1675952429]
@@ -414,7 +427,7 @@ visibility_layer = 4
 z_index = 1
 
 [node name="TestDeInteraccion" parent="." unique_id=287485758 instance=ExtResource("3_fr1um")]
-position = Vector2(65, -10)
+position = Vector2(180, -27)
 
 [node name="Background" type="Node2D" parent="." unique_id=1064460212]
 
@@ -426,7 +439,7 @@ tile_set = SubResource("TileSet_hiumm")
 
 [node name="Platforms" type="TileMapLayer" parent="." unique_id=1780747438]
 z_index = 1
-tile_map_data = PackedByteArray("AAADAAAAAAAAAAAAAAAHAAAAAAAEAAAAAAAIAAAAAAAFAAAAAAADAAEAAAAAAAEAAAAEAAAAAAABAAAAAAAFAAAAAAACAAAAAAAGAAAAAAADAAAAAAAHAAEAAAAEAAEAAAAIAAEAAAAFAAEAAAA=")
+tile_map_data = PackedByteArray("AAAGAP//AAAAAAAAAAAGAAAAAAAAAAEAAAALAP//AAAFAAAAAAALAAAAAAAFAAEAAAAGAAEAAAAAAAEAAAAHAP//AAABAAAAAAAIAP//AAACAAAAAAAJAP//AAADAAAAAAAKAP//AAAEAAAAAAALAAEAAAAFAAEAAAA=")
 tile_set = SubResource("TileSet_viwgx")
 
 [node name="Decorations" type="Node2D" parent="." unique_id=632407076]
