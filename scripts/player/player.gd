@@ -137,7 +137,9 @@ func _on_pause_menu_closed() -> void:
 	if is_instance_valid(_pause_layer):
 		_pause_layer.queue_free()
 	_pause_layer = null
-	get_tree().paused = false
+	if is_inside_tree():
+		get_tree().paused = false
+
 
 
 func _process(_delta: float) -> void:
