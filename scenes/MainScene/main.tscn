@@ -8,7 +8,7 @@
 
 [node name="Antorcha" parent="." unique_id=874282713 instance=ExtResource("1_q48he")]
 z_index = 4
-position = Vector2(-129, 102)
+position = Vector2(-79, 102)
 
 [node name="TestLevel" parent="." unique_id=1675952429 instance=ExtResource("1_7xjnx")]
 z_index = 0
