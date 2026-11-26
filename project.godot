@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LOST_IN_TOWN"
-run/main_scene="uid://d2ugph82vei67"
+run/main_scene="uid://cvl652guykl5e"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

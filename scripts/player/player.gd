@@ -19,6 +19,7 @@ var coyote_timer: float = 0.0
 
 var facing_direction: String = "east"
 var nearby_interactables: Array[Area2D] = []
+var current_interactable: Area2D = null
 var _pause_layer: CanvasLayer = null
 
 
@@ -70,10 +71,9 @@ func _physics_process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		for area in nearby_interactables:
-			if is_instance_valid(area) and area.has_method("interact"):
-				area.interact()
-				break
+		if is_instance_valid(current_interactable):
+			if current_interactable.has_method("interact"):
+				current_interactable.interact()
 
 
 func update_animation(direction: float) -> void:
@@ -100,18 +100,18 @@ func _on_area_entered(area: Area2D) -> void:
 		if not nearby_interactables.has(area):
 			nearby_interactables.append(area)
 
-		var indicator = area.get_node_or_null("InteractionIndicator")
-		if indicator:
-			indicator.visible = true
-
 
 func _on_area_exited(area: Area2D) -> void:
+	var indicator = area.get_node_or_null("InteractionIndicator")
+
+	if indicator:
+		indicator.visible = false
+
 	if nearby_interactables.has(area):
 		nearby_interactables.erase(area)
 
-	var indicator = area.get_node_or_null("InteractionIndicator")
-	if indicator:
-		indicator.visible = false
+	if current_interactable == area:
+		current_interactable = null
 
 
 func _abrir_menu_pausa() -> void:
@@ -144,3 +144,30 @@ func _on_pause_menu_closed() -> void:
 
 func _process(_delta: float) -> void:
 	camera.global_position.y = 0.0
+	_actualizar_interactuable_mas_cercano()
+
+#Detecta cual es el objeto mas cercano para interactuar y evitar asi que se buguee
+func _actualizar_interactuable_mas_cercano() -> void:
+	var nearest: Area2D = null
+	var nearest_distance: float = INF
+
+	for area in nearby_interactables:
+		if not is_instance_valid(area):
+			continue
+
+		var distance = global_position.distance_to(area.global_position)
+
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest = area
+
+	current_interactable = nearest
+
+	for area in nearby_interactables:
+		if not is_instance_valid(area):
+			continue
+
+		var indicator = area.get_node_or_null("InteractionIndicator")
+
+		if indicator:
+			indicator.visible = (area == current_interactable)

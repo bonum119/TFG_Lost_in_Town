@@ -764,8 +764,11 @@ sources/2 = SubResource("TileSetAtlasSource_ofxdy")
 visibility_layer = 4
 z_index = 1
 
+[node name="TestInteractable" parent="." unique_id=307406117 instance=ExtResource("3_fr1um")]
+position = Vector2(192, 21)
+
 [node name="TestDeInteraccion" parent="." unique_id=287485758 instance=ExtResource("3_fr1um")]
-position = Vector2(105, 12)
+position = Vector2(167, 21)
 
 [node name="Background" type="Node2D" parent="." unique_id=1064460212]
 
