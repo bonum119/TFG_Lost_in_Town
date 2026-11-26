@@ -18,7 +18,7 @@ var coyote_timer: float = 0.0
 @onready var camera: Camera2D = $Camera2D
 
 var facing_direction: String = "east"
-var nearby_interactable: Area2D = null
+var nearby_interactables: Array[Area2D] = []
 var _pause_layer: CanvasLayer = null
 
 
@@ -42,6 +42,16 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
+	if is_on_floor():
+		coyote_timer = coyote_time
+	else:
+		coyote_timer -= delta
+
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer_timer = jump_buffer_time
+	else:
+		jump_buffer_timer -= delta
+
 	if jump_buffer_timer > 0 and coyote_timer > 0:
 		velocity.y = jump_velocity
 		coyote_timer = 0.0
@@ -50,28 +60,20 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= jump_cut_multiplier
 
-	if is_on_floor():
-		coyote_timer = coyote_time
-	else:
-		coyote_timer -= delta
-
 	update_animation(direction)
 
 	if Input.is_action_just_pressed("menu_pausa") and _pause_layer == null:
 		_abrir_menu_pausa()
 
-	if Input.is_action_just_pressed("jump"):
-		jump_buffer_timer = jump_buffer_time
-	else:
-		jump_buffer_timer -= delta
-	
 	move_and_slide()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
-		if nearby_interactable != null and nearby_interactable.has_method("interact"):
-			nearby_interactable.interact()
+		for area in nearby_interactables:
+			if is_instance_valid(area) and area.has_method("interact"):
+				area.interact()
+				break
 
 
 func update_animation(direction: float) -> void:
@@ -93,18 +95,23 @@ func update_animation(direction: float) -> void:
 		sprite.play(animation_name)
 
 
-	if sprite.animation != animation_name:
-		sprite.play(animation_name)
-
-
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("interactables"):
-		nearby_interactable = area
+		if not nearby_interactables.has(area):
+			nearby_interactables.append(area)
+
+		var indicator = area.get_node_or_null("InteractionIndicator")
+		if indicator:
+			indicator.visible = true
 
 
 func _on_area_exited(area: Area2D) -> void:
-	if area == nearby_interactable:
-		nearby_interactable = null
+	if nearby_interactables.has(area):
+		nearby_interactables.erase(area)
+
+	var indicator = area.get_node_or_null("InteractionIndicator")
+	if indicator:
+		indicator.visible = false
 
 
 func _abrir_menu_pausa() -> void:
@@ -117,12 +124,20 @@ func _abrir_menu_pausa() -> void:
 
 	var instantiate_menu := menu_scene.instantiate()
 	instantiate_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	instantiate_menu.tree_exited.connect(_on_pause_menu_closed)
 
 	interface_layer.add_child(instantiate_menu)
 	get_tree().current_scene.add_child(interface_layer)
 	_pause_layer = interface_layer
 
 	get_tree().paused = true
+
+
+func _on_pause_menu_closed() -> void:
+	if is_instance_valid(_pause_layer):
+		_pause_layer.queue_free()
+	_pause_layer = null
+	get_tree().paused = false
 
 
 func _process(_delta: float) -> void:

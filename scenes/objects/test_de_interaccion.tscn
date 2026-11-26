@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dr8g335v0idpi" path="res://scripts/interactions/test_de_interaccion.gd" id="1_efbe6"]
 [ext_resource type="Texture2D" uid="uid://cm6338am1ysrn" path="res://icon.svg" id="1_k0u5j"]
+[ext_resource type="Texture2D" uid="uid://phu2m6ylkyr0" path="res://assets/ui/Exclamacion.png" id="3_4i7l6"]
+[ext_resource type="Script" uid="uid://bkw7g50gtbxq3" path="res://scripts/ui/interaction_indicator.gd" id="4_8hogk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3sy6q"]
 
@@ -15,3 +17,11 @@ shape = SubResource("RectangleShape2D_3sy6q")
 position = Vector2(4.7683716e-07, 3.2782555e-07)
 scale = Vector2(0.15625, 0.15625)
 texture = ExtResource("1_k0u5j")
+
+[node name="InteractionIndicator" type="Sprite2D" parent="." unique_id=29392234]
+visible = false
+position = Vector2(0, -20)
+texture = ExtResource("3_4i7l6")
+script = ExtResource("4_8hogk")
+float_amplitude = 2.0
+float_speed = 2.0
