@@ -77,10 +77,10 @@ func _input(event: InputEvent) -> void:
 func update_animation(direction: float) -> void:
 	if direction > 0.0:
 		facing_direction = "east"
-		sprite.flip_h = false
+		sprite.flip_h = false #Volvemos a traer la animacion original
 	elif direction < 0.0:
 		facing_direction = "west"
-		sprite.flip_h = true
+		sprite.flip_h = true #Le damos la vuelta a la animacion para que mire al otro lado
 
 	var animation_name: String
 	if not is_on_floor() and sprite.sprite_frames.has_animation("jump"):
